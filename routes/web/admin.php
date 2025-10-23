@@ -18,25 +18,28 @@ use App\Http\Controllers\Web\Admin\VisitorController;
 use App\Http\Controllers\Web\Admin\WorkController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::prefix('v1/admin')
+Route::prefix('web/v1/admin')
     ->group(function () {
+
+        // --- Login / Logout
         Route::controller(AuthController::class)
             ->middleware('throttle:10,1')
             ->group(function () {
-                Route::get('login', 'create')->name('login');
+                Route::get('login', 'create')->name('v1.admin.login');
                 Route::post('login', 'store');
-                Route::post('logout', 'destroy')->name('logout')->middleware('auth');
+                Route::post('logout', 'destroy')->name('v1.admin.logout')->middleware('auth');
             });
 
-        Route::middleware('auth:sanctum')
+        // --- Только для авторизованных пользователей
+        Route::middleware('auth')
             ->prefix('auth')
             ->group(function () {
                 Route::controller(DashboardController::class)
                     ->group(function () {
-                        Route::get('dashboard', 'index');
+                        Route::get('dashboard', 'index')->name('v1.admin.auth.dashboard');
                     });
             });
+
 
         Route::controller(AdminController::class)
             ->prefix('admins')
@@ -136,4 +139,5 @@ Route::prefix('v1/admin')
                 Route::get('', 'index')->name('index');
             });
     });
+
 
