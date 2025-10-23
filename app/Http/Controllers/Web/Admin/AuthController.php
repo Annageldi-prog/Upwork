@@ -21,7 +21,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('v1.auth.dashboard', absolute: false));
+        return redirect()->intended(route('v1.admin.auth.dashboard', absolute: false));
     }
 
 
