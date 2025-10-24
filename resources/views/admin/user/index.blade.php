@@ -3,9 +3,6 @@
     Admins
 @endsection
 @section('content')
-    <div>
-        @include('app.nav')
-    </div>
 
     <div class="h3 p-3">
         Admins

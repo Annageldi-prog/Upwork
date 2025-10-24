@@ -54,6 +54,58 @@ class Work extends Model
 
     //
 
+    public function experienceLevel()
+    {
+        return ['Entry Level', 'Intermediate', 'Expert'][$this->experience_level];
+    }
+
+    public function experienceLevelColor()
+    {
+        return ['danger', 'warning', 'success'][$this->experience_level];
+    }
+
+    public function jobType()
+    {
+        return ['Hourly', 'Fixed Price'][$this->job_type];
+    }
+
+    public function jobTypeColor()
+    {
+        return ['primary', 'secondary'][$this->job_type];
+    }
+
+    public function projectType()
+    {
+        return ['One Time', 'Ongoing'][$this->project_type];
+    }
+
+    public function projectTypeColor()
+    {
+        return ['primary', 'secondary'][$this->project_type];
+    }
+
+    public function projectLength()
+    {
+        return ['Less Than 1 Month', '1 to 3 Months', '3 to 6 Months', 'More Than 6 Months'][$this->project_length];
+    }
+
+    public function projectLengthColor()
+    {
+        return ['success', 'warning', 'info', 'danger'][$this->project_length];
+    }
+
+    public function hoursPerWeek()
+    {
+        return ['Less Than 3hrs/week', 'Less Than 30hrs/week'][$this->hours_per_week];
+    }
+
+    public function hoursPerWeekColor()
+    {
+        return ['danger', 'success'][$this->hours_per_week];
+    }
+
+    //
+
     public function scopeFilterQuery($query, $f_clientId, $f_freelancerId, $f_profileId, $f_experienceLevels, $f_jobTypes,
                                      $f_hourlyMinPrice, $f_hourlyMaxPrice, $f_fixedPrices, $f_fixedMinPrice, $f_fixedMaxPrice,
                                      $f_numberOfProposals, $f_projectTypes, $f_projectLengths, $f_hoursPerWeeks)

@@ -1,34 +1,36 @@
 @extends('layouts.app')
 @section('title')
-    Reviews
+    IpAddress
 @endsection
 @section('content')
+
     <div class="h3 p-3">
-        Reviews
+        IpAddress
     </div>
 
     <div class="table-responsive">
         <table class="table table-striped table-hover table-bordered table-sm">
             <thead class="small">
             <tr>
-                <th>Id</th>
-                <th>Freelancers</th>
-                <th>Clients</th>
-                <th>From</th>
-                <th>Comment</th>
+                <th>ID</th>
+                <th>IP Address</th>
+                <th>Country Code</th>
+                <th>Country Name</th>
+                <th>City Name</th>
+                <th>Disabled</th>
                 <th>Created At</th>
                 <th>Updated At</th>
             </tr>
             </thead>
-
             <tbody>
             @foreach($objs as $obj)
                 <tr>
                     <td>{{ $obj->id }}</td>
-                    <td>{{ $obj->freelancer->first_name }} {{ $obj->freelancer->last_name }}</td>
-                    <td>{{ $obj->client->first_name }} {{ $obj->client->last_name }}</td>
-                    <td>{{ $obj->from }}</td>
-                    <td>{{ $obj->comment }}</td>
+                    <td>{{ $obj->ip_address }}</td>
+                    <td>{{ $obj->country_code }}</td>
+                    <td>{{ $obj->country_name }}</td>
+                    <td>{{ $obj->city_name }}</td>
+                    <td>{{ $obj->disabled ? 'Yes' : 'No' }}</td>
                     <td>{{ $obj->created_at }}</td>
                     <td>{{ $obj->updated_at }}</td>
                 </tr>
@@ -36,5 +38,4 @@
             </tbody>
         </table>
     </div>
-
 @endsection

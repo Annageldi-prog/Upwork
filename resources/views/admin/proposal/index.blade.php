@@ -3,9 +3,6 @@
     Proposals
 @endsection
 @section('content')
-    <div>
-        @include('app.nav')
-    </div>
 
     <div class="h3 p-3">
         Proposals
@@ -44,6 +41,4 @@
             </tbody>
         </table>
     </div>
-
-    <div>{{ $objs->links() }}</div>
 @endsection

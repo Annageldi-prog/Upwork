@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class IpAddress extends Model
 {
-    protected $guarded = ['id'];
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
+    ];
 
     public $timestamps = false;
 
