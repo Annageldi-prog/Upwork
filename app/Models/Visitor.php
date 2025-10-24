@@ -13,6 +13,16 @@ class Visitor extends Model
         'updated_at',
     ];
 
+    protected $fillable = [
+        'ip_address_id',
+        'user_agent_id',
+        'hits',
+        'suspect_hits',
+        'robot',
+        'api',
+        'disabled',
+    ];
+
     protected function casts(): array
     {
         return [

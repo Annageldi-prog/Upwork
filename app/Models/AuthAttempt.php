@@ -7,10 +7,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AuthAttempt extends Model
 {
+
     protected $guarded = [
         'id',
         'created_at',
     ];
+    protected $fillable = [
+        'ip_address_id',
+        'user_agent_id',
+        'username',
+        'event',
+        'created_at',
+    ];
+
+    public $timestamps = false;
 
     protected function casts(): array
     {

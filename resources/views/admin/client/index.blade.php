@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('title')
-    IpAddress
+    Client
 @endsection
 @section('content')
 
     <div class="h3 p-3">
-        IpAddress
+        Client
     </div>
 
     <div class="table-responsive">

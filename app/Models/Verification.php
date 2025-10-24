@@ -15,6 +15,13 @@ class Verification extends Model
         'updated_at',
     ];
 
+    protected $fillable = [
+        'username',
+        'code',
+        'method',
+        'status',
+    ];
+
     protected function casts(): array
     {
         return [
