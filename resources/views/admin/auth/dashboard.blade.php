@@ -3,8 +3,5 @@
     Dashboard
 @endsection
 @section('content')
-    @include('app.nav')
-    <div class="container-fluid py-3">
-        @include('app.alert')
-    </div>
+    <h1>Dashboard</h1>
 @endsection
