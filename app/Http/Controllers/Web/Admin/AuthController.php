@@ -12,7 +12,7 @@ class AuthController extends Controller
     public function create()
     {
         if (Auth::check()) {
-            return redirect()->intended(route('v1.auth.dashboard'));
+            return redirect()->intended(route('auth.dashboard'));
         }
 
         return view('admin.auth.login');
@@ -23,7 +23,7 @@ class AuthController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        return redirect()->intended(route('v1.auth.dashboard'));
+        return redirect()->intended(route('auth.dashboard'));
     }
 
 
@@ -33,6 +33,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('v1.admin.login');
+        return redirect()->route('admin.login');
     }
 }

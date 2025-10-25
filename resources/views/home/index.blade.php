@@ -3,6 +3,6 @@
     Upwork
 @endsection
 @section('content')
-    <div class="h1 ps-5">Home</div>
+    <div class="h2">Home</div>
     <hr>
 @endsection

@@ -38,9 +38,9 @@
                             <div class="badge bg-warning-subtle text-warning-emphasis">Not Verified</div>
                         @endif
                     </td>
-                    <td><a href="{{ route('v1.auth.skills.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->freelancer_skills_count }}</a></td>
-                    <td><a href="{{ route('v1.auth.works.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
-                    <td><a href="{{ route('v1.auth.proposals.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->proposals_count }}</a></td>
+                    <td><a href="{{ route('auth.skills.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->freelancer_skills_count }}</a></td>
+                    <td><a href="{{ route('auth.works.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
+                    <td><a href="{{ route('auth.proposals.index', ['freelancer' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->proposals_count }}</a></td>
                     <td>{{ $obj->created_at }}</td>
                     <td>{{ $obj->updated_at }}</td>
                 </tr>

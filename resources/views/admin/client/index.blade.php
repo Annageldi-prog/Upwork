@@ -37,8 +37,8 @@
                             <div class="badge bg-warning-subtle text-warning-emphasis">Not Verified</div>
                         @endif
                     </td>
-                    <td><a href="{{ route('v1.auth.works.index', ['client' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
-                    <td><a href="{{ route('v1.auth.reviews.index', ['client' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->my_reviews_count }}</a></td>
+                    <td><a href="{{ route('auth.works.index', ['client' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
+                    <td><a href="{{ route('auth.reviews.index', ['client' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->my_reviews_count }}</a></td>
                     <td>{{ $obj->created_at }}</td>
                     <td>{{ $obj->updated_at }}</td>
                 </tr>

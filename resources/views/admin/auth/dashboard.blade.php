@@ -3,5 +3,5 @@
     Dashboard
 @endsection
 @section('content')
-    <h1>Dashboard</h1>
+    <div class="h1">Dashboard</div>
 @endsection

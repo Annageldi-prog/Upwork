@@ -28,5 +28,4 @@
             </tbody>
         </table>
     </div>
-    <div>{{ $objs->links() }}</div>
 @endsection

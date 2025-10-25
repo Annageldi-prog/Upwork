@@ -26,8 +26,8 @@
                 <tr>
                     <td>{{ $obj->id }}</td>
                     <td>{{ $obj->freelancer?->first_name }} {{ $obj->freelancer?->last_name }}</td>                    <td>{{ $obj->body }}</td>
-                    <td><a href="{{ route('v1.auth.works.index', ['profile' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
-                    <td><a href="{{ route('v1.auth.proposals.index', ['profile' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->proposals_count }}</a></td>
+                    <td><a href="{{ route('auth.works.index', ['profile' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->works_count }}</a></td>
+                    <td><a href="{{ route('auth.proposals.index', ['profile' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->proposals_count }}</a></td>
                     <td>{{ $obj->created_at }}</td>
                     <td>{{ $obj->updated_at }}</td>
                 </tr>

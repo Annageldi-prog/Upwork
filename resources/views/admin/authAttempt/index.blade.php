@@ -3,7 +3,6 @@
     AuthAttempt
 @endsection
 @section('content')
-
     <div class="h3 p-3">
         AuthAttempt
     </div>

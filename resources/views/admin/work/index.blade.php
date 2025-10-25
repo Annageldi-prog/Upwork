@@ -15,7 +15,10 @@
                 <th>Client</th>
                 <th>Freelancer</th>
                 <th>Profile</th>
+
+                <th>Experience Level</th>
                 <th>Proposals</th>
+                <th>Title</th>
                 <th width="10%">Created At</th>
                 <th width="10%">Updated At</th>
             </tr>
@@ -24,7 +27,7 @@
             <tbody>
             @foreach($objs as $obj)
                 <tr>
-                    <td rowspan="2">{{ $obj->id }}</td>
+                    <td>{{ $obj->id }}</td>
                     <td>{{ $obj->client->first_name }} {{ $obj->client->last_name }}</td>
                     <td>{{ $obj->freelancer?->first_name }} {{ $obj->freelancer?->last_name }}</td>
                     <td>{{ $obj->profile?->id }}</td>
@@ -33,7 +36,7 @@
                             {{ $obj->experienceLevel() }}
                         </span>
                     </td>
-                    <td><a href="{{ route('v1.auth.proposals.index', ['work' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->proposals_count }}</a></td>
+                    <td><a href="{{ route('auth.proposals.index', ['work' => $obj->id]) }}" class="text-decoration-none" target="_blank"><i class="bi-box-arrow-up-right"> </i>{{ $obj->proposals_count }}</a></td>
                     <td>{{ $obj->title }}</td>
                     <td>{{ $obj->created_at }}</td>
                     <td>{{ $obj->updated_at }}</td>

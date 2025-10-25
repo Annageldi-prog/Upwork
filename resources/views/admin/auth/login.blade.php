@@ -10,7 +10,7 @@
             </div>
 
 
-            <form method="POST" action="{{ route('v1.admin.login') }}">
+            <form method="POST" action="{{ route('admin.login') }}">
                 @csrf
                 <div class="mb-3">
                     <label for="username" class="form-label fw-semibold">
