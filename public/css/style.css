@@ -1,0 +1,16 @@
+.star-rating {
+    display: inline-block;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.star {
+    color: #ddd;
+    transition: color 0.2s;
+}
+
+.star:hover,
+.star.hover,
+.star.selected {
+    color: #ffc107; /* желтый цвет */
+}

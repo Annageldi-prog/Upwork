@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('freelancers', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
-            $table->foreignId('location_id')->index()->nullable()->constrained()->nullOnDelete();
+            $table->uuid('uuid');
+            $table->foreignId('location_id')->nullable()->index()->constrained()->nullOnDelete();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('avatar')->nullable();

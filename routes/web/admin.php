@@ -56,6 +56,12 @@ Route::middleware('auth')
             ->name('freelancers.')
             ->group(function () {
                 Route::get('', 'index')->name('index');
+                Route::get('create', 'create')->name('create');
+                Route::post('', 'store')->name('store');
+                Route::get('{freelancer}', 'show')->name('show');
+                Route::get('{freelancer}/edit', 'edit')->name('edit');
+                Route::put('{freelancer}', 'update')->name('update');
+                Route::delete('{freelancer}', 'destroy')->name('destroy');
             });
 
         Route::controller(ProfileController::class)
@@ -63,6 +69,12 @@ Route::middleware('auth')
             ->name('profiles.')
             ->group(function () {
                 Route::get('', 'index')->name('index');
+                Route::get('create', 'create')->name('create');
+                Route::post('', 'store')->name('store');
+                Route::get('{profile}', 'show')->name('show');
+                Route::get('{profile}/edit', 'edit')->name('edit');
+                Route::put('{profile}', 'update')->name('update');
+                Route::delete('{profile}', 'destroy')->name('destroy');
             });
 
         Route::controller(IpAddressController::class)

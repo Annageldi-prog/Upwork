@@ -12,12 +12,12 @@ return new class extends Migration {
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
-            $table->foreignId('client_id')->index()->constrained()->cascadeOnDelete();
-            $table->foreignId('freelancer_id')->index()->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('profile_id')->index()->nullable()->constrained()->nullOnDelete();
+            $table->uuid('uuid'); // имя столбца обязательно
+            $table->foreignId('client_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('freelancer_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('profile_id')->nullable()->constrained()->nullOnDelete();
             $table->string('title');
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->unsignedTinyInteger('experience_level')->default(0);
             $table->unsignedTinyInteger('job_type')->default(0);
             $table->unsignedInteger('price')->default(0);
@@ -28,6 +28,7 @@ return new class extends Migration {
             $table->dateTime('last_viewed')->useCurrent();
             $table->timestamps();
         });
+
     }
 
     /**

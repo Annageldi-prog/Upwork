@@ -12,11 +12,11 @@ return new class extends Migration {
     {
         Schema::create('proposals', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
-            $table->foreignId('work_id')->index()->constrained()->cascadeOnDelete();
+            $table->uuid('uuid');
+            $table->foreignId('work_id')->nullable()->index()->constrained()->cascadeOnDelete();
             $table->foreignId('freelancer_id')->index()->constrained()->cascadeOnDelete();
-            $table->foreignId('profile_id')->index()->constrained()->cascadeOnDelete();
-            $table->text('cover_letter');
+            $table->foreignId('profile_id')->nullable()->index()->constrained()->cascadeOnDelete();
+            $table->text('cover_letter')->nullable();
             $table->unsignedTinyInteger('status')->default(0);
             $table->timestamps();
         });

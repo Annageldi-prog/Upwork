@@ -9,11 +9,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-icons.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script type="text/javascript" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+
 </head>
 <body class="bg-light">
 @include('app.nav')
-<div class="container-xl py-3">
+<div class="container-fluid py-3">
     @include('app.alert')
     @yield('content')
 </div>
