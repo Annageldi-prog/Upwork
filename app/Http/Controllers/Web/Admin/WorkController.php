@@ -15,21 +15,15 @@ class WorkController extends Controller
             'freelancer' => ['nullable', 'integer', 'min:1'],
             'profile' => ['nullable', 'integer', 'min:1'],
         ]);
-        $f_client = $request->has('client') ? $request->client : null;
-        $f_freelancer = $request->has('freelancer') ? $request->freelancer : null;
-        $f_profile = $request->has('profile') ? $request->profile : null;
 
-        $objs = Work::when(isset($f_client), fn($query) => $query->where('client_id', $f_client))
-            ->when(isset($f_freelancer), fn($query) => $query->where('freelancer_id', $f_freelancer))
-            ->when(isset($f_profile), fn($query) => $query->where('profile_id', $f_profile))
+        $objs = Work::when($request->filled('client'), fn($q) => $q->where('client_id', $request->client))
+            ->when($request->filled('freelancer'), fn($q) => $q->where('freelancer_id', $request->freelancer))
+            ->when($request->filled('profile'), fn($q) => $q->where('profile_id', $request->profile))
             ->with('client', 'freelancer', 'profile')
             ->withCount('proposals', 'workSkills')
-            ->orderBy('id', 'desc')
-            ->paginate();
+            ->orderByDesc('id')
+            ->paginate(10); 
 
-        return view('admin.work.index')
-            ->with([
-                'objs' => $objs,
-            ]);
+        return view('admin.work.index', compact('objs'));
     }
 }

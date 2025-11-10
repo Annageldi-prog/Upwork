@@ -19,7 +19,14 @@ class FreelancerController extends Controller
 
         $freelancers = Freelancer::when($request->location, fn($q) => $q->where('location_id', $request->location))
             ->with('location')
-            ->withCount('profiles', 'freelancerSkills', 'myReviews', 'clientReviews', 'works', 'proposals')
+            ->withCount([
+                'profiles',
+                'freelancerSkills',
+                'myReviews',
+                'clientReviews',
+                'works',
+                'proposals'
+            ])
             ->orderByDesc('id')
             ->paginate(10);
 
@@ -40,21 +47,62 @@ class FreelancerController extends Controller
             'last_name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:freelancers,username',
             'password' => 'required|string|min:6',
-            'rating' => 'nullable|numeric|min:0|max:5',
             'location_id' => 'nullable|exists:locations,id',
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'verified' => 'sometimes|boolean',
+            'rating' => 'nullable|numeric|min:0|max:5',
+            'total_jobs' => 'nullable|integer|min:0',
+            'total_earnings' => 'nullable|integer|min:0',
+            'previous_clients' => 'nullable|array',
+            'skills' => 'nullable|array',
+            'skills.*' => 'exists:skills,id',
+            'works' => 'nullable|string',
+            'proposals' => 'nullable|string',
         ]);
 
         if ($request->hasFile('avatar')) {
             $validated['avatar'] = $request->file('avatar')->store('avatars/freelancers', 'public');
         }
 
-        $validated['uuid'] = \Str::uuid();
+        $validated['uuid'] = Str::uuid();
         $validated['password'] = bcrypt($validated['password']);
-        $validated['verified'] = $request->has('verified');
+        $validated['verified'] = $request->boolean('verified');
 
-        Freelancer::create($validated);
+        // Сохраняем previous_clients как JSON
+        if (isset($validated['previous_clients'])) {
+            $validated['previous_clients'] = json_encode($validated['previous_clients']);
+        }
+
+        $freelancer = Freelancer::create($validated);
+
+        // Синхронизация навыков
+        if ($request->filled('skills')) {
+            $freelancer->freelancerSkills()->sync($request->skills);
+        }
+
+        // Создание Works
+        if ($request->filled('works')) {
+            foreach (explode("\n", $request->works) as $work) {
+                $freelancer->works()->create([
+                    'uuid' => Str::uuid(),
+                    'title' => trim($work),
+                    'client_id' => null,
+                    'body' => null,
+                ]);
+            }
+        }
+
+        // Создание Proposals
+        if ($request->filled('proposals')) {
+            foreach (explode("\n", $request->proposals) as $proposal) {
+                $freelancer->proposals()->create([
+                    'uuid' => Str::uuid(),
+                    'title' => trim($proposal),
+                    'work_id' => null,
+                    'profile_id' => null,
+                    'cover_letter' => null,
+                ]);
+            }
+        }
 
         return redirect()->route('auth.freelancers.index')
             ->with('success', 'Freelancer created successfully!');
@@ -83,6 +131,7 @@ class FreelancerController extends Controller
             'location_id' => 'nullable|exists:locations,id',
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'verified' => 'sometimes|boolean',
+            'previous_clients' => 'nullable|array',
             'skills' => 'nullable|array',
             'skills.*' => 'exists:skills,id',
         ]);
@@ -97,7 +146,12 @@ class FreelancerController extends Controller
             unset($validated['password']);
         }
 
-        $validated['verified'] = $request->has('verified');
+        $validated['verified'] = $request->boolean('verified');
+
+        // previous_clients как JSON
+        if (isset($validated['previous_clients'])) {
+            $validated['previous_clients'] = json_encode($validated['previous_clients']);
+        }
 
         $freelancer->update($validated);
 
@@ -105,12 +159,14 @@ class FreelancerController extends Controller
             $freelancer->freelancerSkills()->sync($request->skills);
         }
 
-        return redirect()->route('auth.freelancers.index')->with('success', 'Freelancer updated successfully!');
+        return redirect()->route('auth.freelancers.index')
+            ->with('success', 'Freelancer updated successfully!');
     }
 
     public function destroy(Freelancer $freelancer)
     {
         $freelancer->delete();
-        return redirect()->route('auth.freelancers.index')->with('success', 'Freelancer deleted successfully!');
+        return redirect()->route('auth.freelancers.index')
+            ->with('success', 'Freelancer deleted successfully!');
     }
 }

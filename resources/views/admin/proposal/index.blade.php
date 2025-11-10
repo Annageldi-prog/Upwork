@@ -1,43 +1,54 @@
 @extends('layouts.app')
+
 @section('title')
     Proposals
 @endsection
-@section('content')
 
+@section('content')
     <div class="h3 p-3">
         Proposals
     </div>
 
     <div class="table-responsive">
         <table class="table table-striped table-hover table-bordered table-sm">
-            <thead class="small">
+            <thead class="small text-center">
             <tr>
                 <th>Id</th>
-                <th>Work</th>
                 <th>Freelancer</th>
+                <th>Work</th>
+                <th>Profile</th>
                 <th>Cover Letter</th>
                 <th>Status</th>
-                <th width="7.5%">Created At</th>
-                <th width="7.5%">Updated At</th>
+                <th>Created At</th>
+                <th>Updated At</th>
             </tr>
             </thead>
 
             <tbody>
-            @foreach($objs as $obj)
-                <tr>
+            @forelse($objs as $obj)
+                <tr class="text-center">
                     <td>{{ $obj->id }}</td>
-                    <td>{{ $obj->work->id }}</td>
-                    <td>{{ $obj->profile?->id }}</td>
-                    <td>{{ $obj->cover_letter }}</td>
+                    <td>{{ $obj->freelancer?->first_name ?? 'Not assigned' }} {{ $obj->freelancer?->last_name ?? '' }}</td>
+                    <td>{{ $obj->work?->title ?? 'No work' }}</td>
+                    <td>{{ $obj->profile?->id ?? 'N/A' }}</td>
+                    <td>{{ $obj->cover_letter ?? '-' }}</td>
                     <td>
-                        <span class="badge bg-{{ $obj->statusColor() }}-subtle text-{{ $obj->statusColor() }}-emphasis">
-                            {{ $obj->status() }}
-                        </span>
+                        @if(isset($obj->status))
+                            <span class="badge bg-{{ $obj->status == 1 ? 'success' : 'warning' }}-subtle text-{{ $obj->status == 1 ? 'success' : 'warning' }}-emphasis">
+                                {{ $obj->status == 1 ? 'Accepted' : 'Pending' }}
+                            </span>
+                        @else
+                            <span class="badge bg-secondary-subtle text-secondary-emphasis">Unknown</span>
+                        @endif
                     </td>
-                    <td>{{ $obj->created_at }}</td>
-                    <td>{{ $obj->updated_at }}</td>
+                    <td>{{ $obj->created_at?->format('Y-m-d H:i') ?? '-' }}</td>
+                    <td>{{ $obj->updated_at?->format('Y-m-d H:i') ?? '-' }}</td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="8" class="text-center text-muted py-3">No proposals found.</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
     </div>

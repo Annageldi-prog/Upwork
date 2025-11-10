@@ -12,7 +12,6 @@
         </a>
     </div>
 
-
     <div class="table-responsive px-3">
         <table class="table table-striped table-hover table-bordered table-sm align-middle">
             <thead class="table-light small text-center">
@@ -30,6 +29,7 @@
                 <th>Proposals</th>
                 <th>Created At</th>
                 <th>Updated At</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -46,7 +46,9 @@
                             <span class="badge bg-warning-subtle text-warning-emphasis">Not Verified</span>
                         @endif
                     </td>
-                    <td class="bi-star-fill text-warning"><span class="text-dark ps-2">{{ $freelancer->rating }}</span></td>
+                    <td class="bi-star-fill text-warning">
+                        <span class="text-dark ps-2">{{ $freelancer->rating }}</span>
+                    </td>
                     <td>{{ $freelancer->total_jobs }}</td>
                     <td>{{ $freelancer->total_earnings }}</td>
                     <td>
@@ -67,21 +69,23 @@
                     <td>{{ $freelancer->created_at->format('Y-m-d H:i') }}</td>
                     <td>{{ $freelancer->updated_at->format('Y-m-d H:i') }}</td>
                     <td>
+                        <a href="{{ route('auth.freelancers.show', $freelancer->id) }}" class="btn btn-info btn-sm mb-1 ">
+                              <span class="pe-2">Show</span>
+                        </a>
                         <form action="{{ route('auth.freelancers.destroy', $freelancer->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this freelancer?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash"></i> Delete
+                               Delete
                             </button>
                         </form>
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="14" class="text-center text-muted py-3">No freelancers found.</td>
+                    <td colspan="15" class="text-center text-muted py-3">No freelancers found.</td>
                 </tr>
             @endforelse
-
             </tbody>
         </table>
     </div>
